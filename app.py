@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, HTTPException
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import torch
 import secrets
+import os
 
 app = FastAPI()
 
@@ -39,6 +40,10 @@ async def summarize(request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=5000, log_level="info")
+    port = int(os.environ.get("PORT", 10000))  # Default to 10000 if PORT is not set
+    uvicorn.run(app, host="0.0.0.0", port=port)
+

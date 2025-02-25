@@ -3,6 +3,7 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import torch
 import secrets
 import os
+import uvicorn
 
 app = FastAPI()
 
@@ -43,7 +44,6 @@ async def summarize(request: Request):
 
 
 if __name__ == "__main__":
-    import uvicorn
-    port = int(os.environ.get("PORT", 10000))  # Default to 10000 if PORT is not set
+    port = int(os.environ.get("PORT", 10000))
     uvicorn.run(app, host="0.0.0.0", port=port)
 
